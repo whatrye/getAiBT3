@@ -34,9 +34,13 @@ def getTandI_thread(tp,torrentsPath,enable_proxy = False, proxy_string = {"http"
 ##    n=n+1
     print(tp['link'])
     tResDict = gettorrentlink4.get_torrentlink(myreq_url = str(tp['link']), enable_proxy = enable_proxy, proxy_string = proxy_string)
+    n = 0
     for imgLink in tResDict['imgsList']:
-        #outfilename =imgLink[imgLink.rfind('/')+1:len(imgLink)]
-        outfilename =imgLink[imgLink.rfind('/')+1:]
+        #outfilename = imgLink[imgLink.rfind('/')+1:len(imgLink)]
+##        outfilename = imgLink[imgLink.rfind('/')+1:]
+        #图片文件名替换为title+序号格式，如must1.jpg must2.jpg ...，和torrent文件统一文件名
+        n = n+1
+        outfilename = tResDict['title']+ '_' + str(n) + imgLink[imgLink.rfind('.'):]
         a = {'link':imgLink,'ofile':outfilename,'oDir':str(torrentsPath + r'/' +tResDict['title'])}
         imgsList.append(a)
     if tResDict['btCode'] != 'notExist':
@@ -44,9 +48,9 @@ def getTandI_thread(tp,torrentsPath,enable_proxy = False, proxy_string = {"http"
         btsList.append(b)
         
     if len(btsList) >0:
-        getFiles(fileList=btsList,m='p')
+        getFiles(fileList = btsList,m = 'p')
     if len(imgsList) >0:
-        getFiles(fileList=imgsList,m='g')
+        getFiles(fileList = imgsList,m = 'g')
 
 def getTrAndImgs(linksList,torrentsPath):
     #以线程方式获取单网页并获取torrent和img的链接
@@ -70,7 +74,7 @@ def getTrAndImgs(linksList,torrentsPath):
 ##        for thread1 in threads:
 ##            thread1.join()
 
-    with ThreadPoolExecutor(max_workers=50) as pool:
+    with ThreadPoolExecutor(max_workers = 50) as pool:
         [pool.submit(getTandI_thread,item,torrentsPath) for item in linksList]
 
 if __name__ == '__main__':
