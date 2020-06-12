@@ -41,10 +41,13 @@ def getTandI_thread(tp,torrentsPath,enable_proxy = False, proxy_string = {"http"
         #图片文件名替换为title+序号格式，如must1.jpg must2.jpg ...，和torrent文件统一文件名
         n = n+1
         outfilename = tResDict['title']+ '_' + str(n) + imgLink[imgLink.rfind('.'):]
-        a = {'link':imgLink,'ofile':outfilename,'oDir':str(torrentsPath + r'/' +tResDict['title'])}
+##        a = {'link':imgLink,'ofile':outfilename,'oDir':str(torrentsPath + r'/' +tResDict['title'])}
+        #change path to 'torrents'
+        a = {'link':imgLink,'ofile':outfilename,'oDir':torrentsPath}
         imgsList.append(a)
     if tResDict['btCode'] != 'notExist':
-        b = {'link':tResDict['btCode'],'ofile':str(tResDict['title'])+'.torrent','oDir':str(torrentsPath + r'/' +tResDict['title'])}
+##        b = {'link':tResDict['btCode'],'ofile':str(tResDict['title'])+'.torrent','oDir':str(torrentsPath + r'/' +tResDict['title'])}
+        b = {'link':tResDict['btCode'],'ofile':str(tResDict['title'])+'.torrent','oDir':torrentsPath}
         btsList.append(b)
         
     if len(btsList) >0:
