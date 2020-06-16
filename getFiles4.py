@@ -29,7 +29,7 @@ def getFile(ft, m = 'g', enable_proxy = False, tcode = 'vic8w2AM', proxy_string 
     headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'}
 
     outdir1 = ft['oDir']
-    os.makedirs(outdir1, exist_ok=True)
+##    os.makedirs(outdir1, exist_ok=True)
     picFullpath = str(outdir1 + r'/' + picFilename)
     print(picFullpath)
 
@@ -59,13 +59,17 @@ def getFile(ft, m = 'g', enable_proxy = False, tcode = 'vic8w2AM', proxy_string 
             except Exception as e:
                 print('error:',e)
                 return 3
-            save = 1
+            if b'404 Not Found' in r1.content:
+                save = 0
+            else:
+                save = 1
             
         imgContent = r1.content
         if len(imgContent) > 0 and save == 1:
             if os.path.exists(picFullpath) and os.path.isfile(picFullpath) and os.access(picFullpath,os.R_OK):
                 print('file exist, skip')
             else:
+                os.makedirs(outdir1, exist_ok=True)
                 ofile = open(picFullpath,'wb')
                 ofile.write(imgContent)
                 ofile.close()

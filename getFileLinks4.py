@@ -48,7 +48,7 @@ def getTandI_thread(tp,torrentsPath,enable_proxy = False, proxy_string = {"http"
     if tResDict['btCode'] != 'notExist':
         b = {'link':tResDict['btCode'],'ofile':str(tResDict['title'])+'.torrent','oDir':str(torrentsPath + r'/' +tResDict['title'])}
         btsList.append(b)
-    '''        
+    '''
     #保存所有文件到torrents目录下
     for imgLink in tResDict['imgsList']:
 ##        outfilename = imgLink[imgLink.rfind('/')+1:]
@@ -61,7 +61,7 @@ def getTandI_thread(tp,torrentsPath,enable_proxy = False, proxy_string = {"http"
     if tResDict['btCode'] != 'notExist':
         b = {'link':tResDict['btCode'],'ofile':str(tResDict['title'])+'.torrent','oDir':torrentsPath}
         btsList.append(b)
-        
+    
         
     if len(btsList) >0:
         getFiles(fileList = btsList,m = 'p')
