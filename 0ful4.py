@@ -84,6 +84,7 @@ def main():
     proxy_string = {"http":"127.0.0.1:8787","https":"127.0.0.1:8787","socks":"127.0.0.1:1080"}
     user_agent = 'Mozilla/5.0'
 
+    '''
     if len(sys.argv) > 1:
         firstpage_number = int(sys.argv[1])
         total_pages = int(sys.argv[2])
@@ -96,18 +97,17 @@ def main():
     '''
     if len(sys.argv) >1:
         for item in sys.argv:
-            if item[0][0] == 's':
-                firstpage_number = int(item[0][1:])
-            if item[0][0] == 'c':
-                total_pages = int(item[0][1:])
-            if item[0][0] == 'm':
-                save_mode = item[0][1:]
+            if item[0] == 's':
+                firstpage_number = int(item[1:])
+            if item[0] == 'c':
+                total_pages = int(item[1:])
+            if item[0] == 'm':
+                save_mode = item[1:]
     else:
         firstpage_number = 1
-        total_pages =1
+        total_pages = 1
         save_mode = 'f'
-            
-    '''
+    
 
     page_host = u'bt.aisex.com'
     pagelink_pre = u'https://' + page_host + u'/bt/thread.php?fid=16&page='
