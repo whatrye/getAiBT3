@@ -91,6 +91,24 @@ def main():
         firstpage_number = 1
         total_pages = 1
 
+    save_mode = 'f'
+
+    '''
+    if len(sys.argv) >1:
+        for item in sys.argv:
+            if item[0][0] == 's':
+                firstpage_number = int(item[0][1:])
+            if item[0][0] == 'c':
+                total_pages = int(item[0][1:])
+            if item[0][0] == 'm':
+                save_mode = item[0][1:]
+    else:
+        firstpage_number = 1
+        total_pages =1
+        save_mode = 'f'
+            
+    '''
+
     page_host = u'bt.aisex.com'
     pagelink_pre = u'https://' + page_host + u'/bt/thread.php?fid=16&page='
 ##    link_dict = {} #link_dict:  {pagenumber:{fulllink:torrentfilename}}
@@ -106,7 +124,7 @@ def main():
     '''
 
     #以线程方式下载
-    getTrAndImgs(linksList,torrentsPath)
+    getTrAndImgs(linksList,torrentsPath,save_mode)
     
 ##      #顺序下载方式-------start-------------
 ####    btsList = []
