@@ -4,7 +4,8 @@
 #获取torrent的相关图片
 
 ##from bs4 import BeautifulSoup
-import requests,queue,threading
+import requests,queue
+#import threading
 
 import gettorrentlink4
 from getFiles4 import getFiles
@@ -43,8 +44,7 @@ def getTandI_thread(tp,torrentsPath,save_mode,enable_proxy = False, proxy_string
         out_dir = torrentsPath
 
     for imgLink in tResDict['imgsList']:
-         #outfilename = imgLink[imgLink.rfind('/')+1:len(imgLink)]
-    ##   outfilename = imgLink[imgLink.rfind('/')+1:] #获取原文件名
+##        outfilename = imgLink[imgLink.rfind('/')+1:] #获取原文件名
         #图片文件名替换为title+序号格式，如must1.jpg must2.jpg ...，和torrent文件统一文件名
         n = n+1
         outfilename = tResDict['title']+ '_' + str(n) + imgLink[imgLink.rfind('.'):]
@@ -53,24 +53,6 @@ def getTandI_thread(tp,torrentsPath,save_mode,enable_proxy = False, proxy_string
     if tResDict['btCode'] != 'notExist':
         b = {'link':tResDict['btCode'],'ofile':str(tResDict['title'])+'.torrent','oDir':out_dir}
         btsList.append(b)
-
-    '''
-    #保存所有文件到torrents目录下
-    if save_mode == 'f':
-        out_dir = torrentsPath
-        for imgLink in tResDict['imgsList']:
-    ##        outfilename = imgLink[imgLink.rfind('/')+1:]
-            #图片文件名替换为title+序号格式，如must1.jpg must2.jpg ...，和torrent文件统一文件名
-            n = n+1
-            outfilename = tResDict['title']+ '_' + str(n) + imgLink[imgLink.rfind('.'):]
-            #change path to 'torrents'
-            a = {'link':imgLink,'ofile':outfilename,'oDir':out_dir}
-            imgsList.append(a)
-        if tResDict['btCode'] != 'notExist':
-            b = {'link':tResDict['btCode'],'ofile':str(tResDict['title'])+'.torrent','oDir':out_dir}
-            btsList.append(b)
-    '''
-    
         
     if len(btsList) >0:
         getFiles(fileList = btsList,m = 'p')
