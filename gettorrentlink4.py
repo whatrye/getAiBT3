@@ -5,6 +5,7 @@
 
 from bs4 import BeautifulSoup
 import requests
+import chardet
 
 from pStr4 import removeSstr,refineString
 
@@ -19,7 +20,10 @@ def get_torrentlink(myreq_url='https://bt.aisex.com/bt/htm_data/16/1609/860163.h
     except Exception as e:
         print('error:',e)
         
-    content1 = r1.content.decode("gbk","ignore")
+##    chard = chardet.detect(r1.content)
+##    print('page encoding:',chard["encoding"])
+##    content1 = r1.content.decode("gbk","ignore")
+    content1 = r1.content.decode("utf-8","ignore")
     soup = BeautifulSoup(content1,'html.parser')
     tCode = 'notExist' #torrent的获取码，10位字符
     tRes = {} #{'btCode':tCode,'title':title,'imgsList':imgsList}
